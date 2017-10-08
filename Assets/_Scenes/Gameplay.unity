@@ -229,6 +229,63 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 47664310}
+--- !u!1 &101777264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 101777265}
+  - component: {fileID: 101777266}
+  m_Layer: 0
+  m_Name: PuzzleHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &101777265
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 101777264}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &101777266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 101777264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b1dd70efc11a544820935cda9070ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puzzlePieces:
+  - {fileID: 604771048}
+  - {fileID: 191058482}
+  - {fileID: 311262762}
+  - {fileID: 1021633263}
+  - {fileID: 1653188903}
+  - {fileID: 1203489152}
+  - {fileID: 895706261}
+  - {fileID: 2052361469}
+  - {fileID: 1370396479}
+  - {fileID: 1747140920}
+  - {fileID: 1153525549}
+  - {fileID: 211089591}
+  - {fileID: 1640701948}
+  - {fileID: 1141708925}
+  - {fileID: 1648712459}
+  - {fileID: 825987387}
 --- !u!1 &119175879
 GameObject:
   m_ObjectHideFlags: 0
