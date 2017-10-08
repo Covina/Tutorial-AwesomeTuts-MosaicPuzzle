@@ -16,7 +16,14 @@ public class SelectPuzzlerController : MonoBehaviour {
         // Now retrieve the puzzle number from the second element in the new array
         int index = int.Parse(name[1]);
 
-        Debug.Log("Player selected Puzzle number " + index);
+        //Debug.Log("Player selected Puzzle number " + index);
+
+
+        if(GameManager.instance != null)
+        {
+            // Set Puzzle Index to store which one was selected
+            GameManager.instance.SetPuzzleIndex(index);
+        }
 
         // Selecting the puzzle starts the game
         SceneManager.LoadScene("Gameplay");

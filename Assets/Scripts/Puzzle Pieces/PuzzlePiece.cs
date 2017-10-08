@@ -11,11 +11,11 @@ public class PuzzlePiece {
 
     // Original locations of the puzzle piece
     // this is before it gets split up and shuffled
-    public static int OriginalRow { get; set; }
-    public static int OriginalColumn { get; set; }
+    public int OriginalRow { get; set; }
+    public int OriginalColumn { get; set; }
 
     // This individual puzzle piece
-    public static GameObject GameObject { get; set; }
+    public GameObject GameObject { get; set; }
 
 
 }
