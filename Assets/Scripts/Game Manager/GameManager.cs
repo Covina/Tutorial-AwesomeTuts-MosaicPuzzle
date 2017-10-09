@@ -340,6 +340,61 @@ public class GameManager : MonoBehaviour {
                             columnFound = column;
                         }
 
+
+                        // CHECK IF EMPTY SPACE IS ADJACENT TO TAPPED PIECE
+                        bool pieceFound = false;
+                        
+                        // check if empty spot is ABOVE the tapped piece
+                        if(rowFound > 0 && Matrix[rowFound - 1, columnFound] == null)
+                        {
+                            pieceFound = true;
+                            rowToAnimate = rowFound - 1;
+                            columnToAnimate = columnFound;
+
+                        } else if (columnFound > 0 && Matrix[rowFound, columnFound - 1] == null)
+                        {
+                            // The empty space is LEFT of the tapped piece
+                            pieceFound = true;
+                            rowToAnimate = rowFound;
+                            columnToAnimate = columnFound - 1;
+
+                        } else if (rowFound < GameVariables.MaxRows - 1 && Matrix[rowFound + 1, columnFound] == null)
+                        {
+                            //  The empty space is BELOW the tapped piece
+                            pieceFound = true;
+                            rowToAnimate = rowFound + 1;
+                            columnToAnimate = columnFound;
+
+                        } else if (columnFound < GameVariables.MaxColumns - 1&& Matrix[rowFound, columnFound + 1] == null)
+                        {
+                            //  The empty space is RIGHT of the tapped piece
+                            pieceFound = true;
+                            rowToAnimate = rowFound;
+                            columnToAnimate = columnFound + 1;
+
+                        } else
+                        {
+                            // There was no adjacent empty space, so no move possible
+                            continue;
+                        }
+
+
+                        // Now animate the puzzle piece
+                        if(pieceFound == true)
+                        {
+                            // get the Vector 3 coords of which puzzle piece we are animating.
+                            screenPositionToAnimate = GetScreenCoordinatesFromViewport(rowToAnimate, columnToAnimate);
+
+                            // assign the coords of what we're animating
+                            pieceToAnimate = Matrix[rowFound, columnFound];
+
+                            // put the game state into animating
+                            gameState = GameState.Animating;
+
+                        }
+
+
+
                     }
 
                 }
