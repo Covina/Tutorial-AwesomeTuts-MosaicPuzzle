@@ -280,4 +280,75 @@ public class GameManager : MonoBehaviour {
     }
 
 
+    // User tapping screen
+    private void CheckInput()
+    {
+        // Did they tap they screen?
+        if(Input.GetMouseButtonDown(0))
+        {
+            // Cast a ray to see what they hit on their touch
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            // Fire the ray and get all the hits
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+
+            // Did we hit 
+            if(hit.collider != null)
+            {
+                // Name format: piece-0-1;  Split using dash.
+                // [0] = piece, [1] = row number, [2] = column number
+                string[] parts = hit.collider.gameObject.name.Split('-');
+
+                // get the row and column numbers of what the player tapped
+                int rowPart = int.Parse(parts[1]);      // row
+                int columnPart = int.Parse(parts[2]);   // column
+
+                // Set row and column to -1 so that it's clear when checking their value 
+                // (helper value)
+                int rowFound = -1;
+                int columnFound = -1;
+
+                // Loop through each row and column
+                for(int row = 0; row < GameVariables.MaxRows; row++)
+                {
+                    // break out of loop if we found it
+                    if(rowFound != -1)
+                    {
+                        break;
+                    }
+
+                    // Loop through the columns
+                    for (int column = 0; column < GameVariables.MaxColumns; column++)
+                    {
+                        // if we already found the column, break the loop
+                        if(columnFound != -1)
+                        {
+                            break;
+                        }
+
+                        // If we are looping over the blank space, go to next loop iteration.
+                        if(Matrix[row, column] == null)
+                        {
+                            continue;
+                        }
+
+                        // If the row and column match what we tapped on, store the values of which one we tapped.
+                        // This basically says that we successfully tapped on a valid puzzle piece.
+                        if(Matrix[row, column].OriginalRow == rowPart && Matrix[row, column].OriginalRow == columnPart)
+                        {
+                            rowFound = row;
+                            columnFound = column;
+                        }
+
+                    }
+
+                }
+
+
+            }
+        }
+
+    }
+
+
 } // GameManager
