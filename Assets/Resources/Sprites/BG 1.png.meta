@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3f86a85a0d445cd498975fa85add58d0
-timeCreated: 1507514995
+timeCreated: 1507527830
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -20,7 +20,7 @@ TextureImporter:
     21300026: piece-3-1
     21300028: piece-3-2
     21300030: piece-3-3
-    21300032: BG 1_8
+    21300032: piece-2-0
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -220,7 +220,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: BG 1_8
+      name: piece-2-0
       rect:
         serializedVersion: 2
         x: 0
