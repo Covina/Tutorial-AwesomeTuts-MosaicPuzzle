@@ -43,7 +43,26 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+        // If we're in the gameplay scene, check in on game state
+		if(SceneManager.GetActiveScene().name == "Gameplay")
+        {
+            switch(gameState)
+            {
+                case GameState.Playing:
+                    CheckInput();
+                    break;
+                case GameState.Animating:
+                    AnimateMovement(pieceToAnimate, Time.deltaTime);
+                    CheckIfAnimationEnded();
+                    break;
+                case GameState.End:
+                    Debug.Log("Game Over");
+                    break;
+
+            }
+
+        }
 	}
 
     // Make the Singleton of GameManager
@@ -111,6 +130,16 @@ public class GameManager : MonoBehaviour {
                 GameStarted();
             }
         }
+
+        // Reset all the vars if we're not playing
+        if(scene.name != "Gameplay")
+        {
+            puzzleIndex = -1;
+            puzzlePieces = null;
+            gameState = GameState.End;
+
+        }
+
 
     }
     
@@ -270,12 +299,14 @@ public class GameManager : MonoBehaviour {
 
         }
 
-        // Set the position of by convering vector space coordinates into a Vector 3.
+        // Set the position of by converting vector space coordinates into a Vector 3.
         Matrix[randomRow, randomColumn].GameObject.transform.position = GetScreenCoordinatesFromViewport(randomRow, randomColumn);
 
         // Store the new row and column values since it has already been swapped
         Matrix[randomRow, randomColumn].CurrentRow = randomRow;
         Matrix[randomRow, randomColumn].CurrentColumn = randomColumn;
+                        
+
 
     }
 
@@ -309,10 +340,10 @@ public class GameManager : MonoBehaviour {
                 int columnFound = -1;
 
                 // Loop through each row and column
-                for(int row = 0; row < GameVariables.MaxRows; row++)
+                for (int row = 0; row < GameVariables.MaxRows; row++)
                 {
                     // break out of loop if we found it
-                    if(rowFound != -1)
+                    if (rowFound != -1)
                     {
                         break;
                     }
@@ -321,89 +352,151 @@ public class GameManager : MonoBehaviour {
                     for (int column = 0; column < GameVariables.MaxColumns; column++)
                     {
                         // if we already found the column, break the loop
-                        if(columnFound != -1)
+                        if (columnFound != -1)
                         {
                             break;
                         }
 
                         // If we are looping over the blank space, go to next loop iteration.
-                        if(Matrix[row, column] == null)
+                        if (Matrix[row, column] == null)
                         {
                             continue;
                         }
 
                         // If the row and column match what we tapped on, store the values of which one we tapped.
                         // This basically says that we successfully tapped on a valid puzzle piece.
-                        if(Matrix[row, column].OriginalRow == rowPart && Matrix[row, column].OriginalRow == columnPart)
+                        if (Matrix[row, column].OriginalRow == rowPart && Matrix[row, column].OriginalColumn == columnPart)
                         {
                             rowFound = row;
                             columnFound = column;
                         }
-
-
-                        // CHECK IF EMPTY SPACE IS ADJACENT TO TAPPED PIECE
-                        bool pieceFound = false;
-                        
-                        // check if empty spot is ABOVE the tapped piece
-                        if(rowFound > 0 && Matrix[rowFound - 1, columnFound] == null)
-                        {
-                            pieceFound = true;
-                            rowToAnimate = rowFound - 1;
-                            columnToAnimate = columnFound;
-
-                        } else if (columnFound > 0 && Matrix[rowFound, columnFound - 1] == null)
-                        {
-                            // The empty space is LEFT of the tapped piece
-                            pieceFound = true;
-                            rowToAnimate = rowFound;
-                            columnToAnimate = columnFound - 1;
-
-                        } else if (rowFound < GameVariables.MaxRows - 1 && Matrix[rowFound + 1, columnFound] == null)
-                        {
-                            //  The empty space is BELOW the tapped piece
-                            pieceFound = true;
-                            rowToAnimate = rowFound + 1;
-                            columnToAnimate = columnFound;
-
-                        } else if (columnFound < GameVariables.MaxColumns - 1&& Matrix[rowFound, columnFound + 1] == null)
-                        {
-                            //  The empty space is RIGHT of the tapped piece
-                            pieceFound = true;
-                            rowToAnimate = rowFound;
-                            columnToAnimate = columnFound + 1;
-
-                        } else
-                        {
-                            // There was no adjacent empty space, so no move possible
-                            continue;
-                        }
-
-
-                        // Now animate the puzzle piece
-                        if(pieceFound == true)
-                        {
-                            // get the Vector 3 coords of which puzzle piece we are animating.
-                            screenPositionToAnimate = GetScreenCoordinatesFromViewport(rowToAnimate, columnToAnimate);
-
-                            // assign the coords of what we're animating
-                            pieceToAnimate = Matrix[rowFound, columnFound];
-
-                            // put the game state into animating
-                            gameState = GameState.Animating;
-
-                        }
-
-
-
                     }
-
                 }
 
+                // debug
+                //Debug.Log("Processing Row[" + row + "], Column[" + column + "] :: rowFound [" + rowFound + "], columnFound [" + columnFound + "]");
+
+                // CHECK IF EMPTY SPACE IS ADJACENT TO TAPPED PIECE
+                bool emptyPieceFound = false;
+                        
+                // check if empty spot is ABOVE the tapped piece
+                if(rowFound > 0 && Matrix[rowFound - 1, columnFound] == null)
+                {
+                    emptyPieceFound = true;
+                    rowToAnimate = rowFound - 1;
+                    columnToAnimate = columnFound;
+
+                } else if (columnFound > 0 && Matrix[rowFound, columnFound - 1] == null)
+                {
+                    // The empty space is LEFT of the tapped piece
+                    emptyPieceFound = true;
+                    rowToAnimate = rowFound;
+                    columnToAnimate = columnFound - 1;
+
+                } else if (rowFound < GameVariables.MaxRows - 1 && Matrix[rowFound + 1, columnFound] == null)
+                {
+                    //  The empty space is BELOW the tapped piece
+                    emptyPieceFound = true;
+                    rowToAnimate = rowFound + 1;
+                    columnToAnimate = columnFound;
+
+                } else if (columnFound < GameVariables.MaxColumns - 1 && Matrix[rowFound, columnFound + 1] == null)
+                {
+                    //  The empty space is RIGHT of the tapped piece
+                    emptyPieceFound = true;
+                    rowToAnimate = rowFound;
+                    columnToAnimate = columnFound + 1;
+
+                } 
+
+
+                // Now animate the puzzle piece
+                if(emptyPieceFound == true)
+                {
+                    // Set the Vector 3 coords of the Empty Space puzzle piece.
+                    screenPositionToAnimate = GetScreenCoordinatesFromViewport(rowToAnimate, columnToAnimate);
+
+                    // assign the coords of the puzzle piece that is going to animate
+                    pieceToAnimate = Matrix[rowFound, columnFound];
+
+                    // put the game state into animating
+                    gameState = GameState.Animating;
+
+                }
 
             }
         }
 
+    } // End CheckInput()
+
+
+    /// <summary>
+    /// Animate the puzzle piece moving into the empty space
+    /// </summary>
+    /// <param name="pieceToMove"></param>
+    /// <param name="time"></param>
+    private void AnimateMovement(PuzzlePiece pieceToMove, float time)
+    {
+        // MoveTowards:  current position, final position, speed
+        pieceToMove.GameObject.transform.position = Vector2.MoveTowards(pieceToMove.GameObject.transform.position, screenPositionToAnimate, animationSpeed * time);
+
     }
+
+    /// <summary>
+    /// Check if the piece has arrived in its new coordinates
+    /// 
+    /// </summary>
+    private void CheckIfAnimationEnded()
+    {
+        // Is the distance from the animating piece and its destination is less than 0.1f, then end the animation.
+        if(Vector2.Distance(pieceToAnimate.GameObject.transform.position, screenPositionToAnimate) < 0.1f)
+        {
+
+            // We made it, so now swap the location data on the two pieces (#1 actively moved and #2 empty space)
+            Swap(pieceToAnimate.CurrentRow, pieceToAnimate.CurrentRow, rowToAnimate, columnToAnimate);
+
+            // Change state from Animating to Playing
+            gameState = GameState.Playing;
+
+            // Check to see if we won each time a piece moves into place
+            CheckForVictory();
+
+        }
+    }
+
+    /// <summary>
+    /// See if all pieces are in their original position
+    /// </summary>
+    private void CheckForVictory()
+    {
+        // Loop through each piece
+        for (int row = 0; row < GameVariables.MaxRows; row++)
+        {
+            for (int column = 0; column < GameVariables.MaxColumns; column++)
+            {
+
+                // if we hit the empty space, continue to next iteration
+                if (Matrix[row, column] == null)
+                {
+                    continue;
+                }
+
+                // Check if the current position matches the orginal position of that game object
+                if (Matrix[row, column].CurrentRow != Matrix[row, column].OriginalRow || Matrix[row, column].CurrentColumn != Matrix[row, column].OriginalColumn ) 
+                {
+                    // not a victory, break out of loop
+                    return;
+                }
+
+            }
+
+        }
+
+        // if we make it this far, the game is won.
+        gameState = GameState.End;
+
+    } // CheckForVictory()
+
 
 
 } // GameManager
