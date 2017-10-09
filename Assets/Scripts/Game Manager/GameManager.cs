@@ -453,7 +453,7 @@ public class GameManager : MonoBehaviour {
         {
 
             // We made it, so now swap the location data on the two pieces (#1 actively moved and #2 empty space)
-            Swap(pieceToAnimate.CurrentRow, pieceToAnimate.CurrentRow, rowToAnimate, columnToAnimate);
+            Swap(pieceToAnimate.CurrentRow, pieceToAnimate.CurrentColumn, rowToAnimate, columnToAnimate);
 
             // Change state from Animating to Playing
             gameState = GameState.Playing;
@@ -462,7 +462,8 @@ public class GameManager : MonoBehaviour {
             CheckForVictory();
 
         }
-    }
+    } // CheckIfAnimationEnded()
+
 
     /// <summary>
     /// See if all pieces are in their original position
