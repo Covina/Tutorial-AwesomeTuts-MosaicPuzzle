@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 3f86a85a0d445cd498975fa85add58d0
-timeCreated: 1507438250
+guid: f7bad3025ca15184996e072af01bead3
+timeCreated: 1507506589
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -125,7 +125,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 327
-        y: 562
+        y: 561
         width: 328
         height: 188
       alignment: 1
@@ -138,10 +138,10 @@ TextureImporter:
       name: piece-0-2
       rect:
         serializedVersion: 2
-        x: 653
-        y: 562
-        width: 328
-        height: 188
+        x: 654
+        y: 562.5
+        width: 327.5
+        height: 187.5
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,8 +194,8 @@ TextureImporter:
       name: piece-1-2
       rect:
         serializedVersion: 2
-        x: 654
-        y: 377
+        x: 653
+        y: 374
         width: 328
         height: 188
       alignment: 1
@@ -208,10 +208,10 @@ TextureImporter:
       name: piece-1-3
       rect:
         serializedVersion: 2
-        x: 981
-        y: 375.5
-        width: 327.5
-        height: 187.5
+        x: 982
+        y: 375
+        width: 328
+        height: 188
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,7 +223,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 188
+        y: 187
         width: 328
         height: 188
       alignment: 1
@@ -237,9 +237,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 327
-        y: 190
-        width: 328
-        height: 188
+        y: 188.5
+        width: 327.5
+        height: 187.5
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -251,9 +251,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 654
-        y: 186
-        width: 328
-        height: 188
+        y: 188.5
+        width: 327.5
+        height: 187.5
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -264,10 +264,10 @@ TextureImporter:
       name: piece-2-3
       rect:
         serializedVersion: 2
-        x: 981
-        y: 188.5
-        width: 327.5
-        height: 187.5
+        x: 980
+        y: 188
+        width: 328
+        height: 188
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -279,9 +279,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1
-        width: 328
-        height: 188
+        y: 1.5
+        width: 327.5
+        height: 187.5
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -306,10 +306,10 @@ TextureImporter:
       name: piece-3-2
       rect:
         serializedVersion: 2
-        x: 653
-        y: 1
-        width: 328
-        height: 188
+        x: 654
+        y: 1.5
+        width: 327.5
+        height: 187.5
       alignment: 1
       pivot: {x: 0, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
